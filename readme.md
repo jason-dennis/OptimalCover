@@ -17,4 +17,4 @@ formulated as a capacitated Facility Location Problem (FLP).
 - Mathematical optimization (FLP)
 
 ## Problem Formulation
-See [`docs/formulas.pdf`](docs/formulas.pdf)
+See [`docs/formulas.pdf`](docs/Mathematical Formulations.pdf)
