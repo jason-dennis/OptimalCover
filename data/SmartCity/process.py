@@ -53,11 +53,13 @@ def generate_candidates(bbox,AP_CAPACITY,EQUIPMENT_COST,GRID_SPACING_M):
     dlon = GRID_SPACING_M / (111320 * math.cos(math.radians(lat_medie)))
     
     lat = bbox[0]
+    id = 0
     while(lat <= bbox[1]):
         lon = bbox[2]
         while(lon <= bbox[3]):
-            candidates.append({"lat":lat,"lon":lon,"capacity":AP_CAPACITY,"fixed_cost":EQUIPMENT_COST})
+            candidates.append({"id":id,"lat":lat,"lon":lon,"capacity":AP_CAPACITY,"fixed_cost":EQUIPMENT_COST})
             lon+=dlon
+            id+=1
         lat += dlat
     
     return candidates
@@ -79,13 +81,14 @@ if __name__=="__main__":
     EQUIPMENT_COST = 2000
     FACTOR = 0.267
     GRID_SPACING_M = 100
+    BUDGET = 10_000_000
     elements = get_elements()
     zones = build_zones(elements,FACTOR)
     bbox = get_bbox(zones)
     candidates = generate_candidates(bbox,AP_CAPACITY,EQUIPMENT_COST,GRID_SPACING_M)
     # distances = build_distances(zones,candidates)
     
-    problem_data={"zones":zones, "candidates":candidates}
+    problem_data={"zones":zones, "candidates":candidates,"budget": BUDGET}
     with open("data/SmartCity/output/problem.json","w") as f:
         json.dump(problem_data,f,indent=2)
     
